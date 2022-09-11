@@ -1,11 +1,13 @@
-## Interface: 90205
+## Interface: 90207
 ## Interface-Classic: 11402
 ## Interface-BCC: 20503
-## Author: pngmn
+## Version: @project-version@
+
+## Author: Pingumania
 ## Title: Kui |cff9966ffNameplates:|r |cffffffffMania|r
 ## Notes: Custom nameplate scripts
-## Version: @project-version@
-## Dependencies: Kui_Nameplates
+
+## RequiredDeps: Kui_Nameplates
 ## SavedVariables: KuiNameplatesManiaDB
 
 embeds.xml
