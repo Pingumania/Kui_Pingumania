@@ -18,3 +18,4 @@ custom.name-left.lua
 custom.objectives.lua
 custom.spell-alert.lua
 custom.spell-timer.lua
+custom.target-helper.lua
