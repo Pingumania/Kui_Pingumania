@@ -1,3 +1,4 @@
+if not ns.Retail then return end
 local addon = KuiNameplates
 local mod = addon:NewPlugin("Cusotm_ClassPowerPosition", 101)
 if not mod then return end

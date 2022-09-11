@@ -1,4 +1,6 @@
 ## Interface: 90100
+## Interface-Classic: 11307
+## Interface-BCC: 20502
 ## Author: pngmn
 ## Title: Kui |cff9966ffNameplates:|r |cffffffffMania|r
 ## Notes: Custom nameplate scripts

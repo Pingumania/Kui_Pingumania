@@ -1,4 +1,4 @@
-## Interface: 20501
+## Interface: 20502
 ## Author: pngmn
 ## Title: Kui |cff9966ffNameplates:|r |cffffffffMania|r
 ## Notes: Custom nameplate scripts
@@ -11,4 +11,11 @@ custom.castbar-text.lua
 custom.classpower-pos.lua
 custom.elite-indicator.lua
 custom.enemy-auras.lua
+custom.explosives.lua
+custom.mythicplus.lua
+custom.name-left.lua
+custom.name-short.lua
+custom.objectives.lua
 custom.spell-alert.lua
+custom.spell-timer.lua
+custom.target-helper.lua
