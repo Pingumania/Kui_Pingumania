@@ -1,0 +1,13 @@
+## Interface: 80300
+## Author: Pingumania
+## Title: Kui |cff9966ffNameplates:|r |cffffffffCustom|r
+## Notes: Custom nameplate scripts
+## Version: v1.0
+## Dependencies: Kui_Nameplates
+
+custom.classpower-pos.lua
+custom.elite-indicator.lua
+custom.mythicplus.lua
+custom.objectives.lua
+custom.enemy-auras.lua
+custom.target-arrows.lua
