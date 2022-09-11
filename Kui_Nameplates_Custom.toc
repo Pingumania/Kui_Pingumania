@@ -8,6 +8,7 @@
 libs\libs.xml
 custom.castbar-text.lua
 custom.classpower-pos.lua
+custom.current-target.lua
 custom.elite-indicator.lua
 custom.explosives.lua
 custom.mythicplus.lua
