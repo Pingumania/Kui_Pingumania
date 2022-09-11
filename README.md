@@ -1,6 +1,6 @@
 # Kui_Nameplates_pngmn
 
-Collection of my custom modules for the [KuiNameplates](https://wow.curseforge.com/projects/kuinameplates) World of Warcraft addon.
+Collection of my custom modules for the [KuiNameplates](https://wow.curseforge.com/projects/kuinameplates) World of Warcraft addon.  
 Some are sourced from [here](https://github.com/kesava-wow/kuinameplates-customs).
 
 ## Modules
@@ -18,5 +18,5 @@ Some are sourced from [here](https://github.com/kesava-wow/kuinameplates-customs
 
 ## Credits
 
-Kesava for making Kui_Nameplates
+Kesava for making Kui_Nameplates  
 Stanzilla for making Kui_Stanzilla
