@@ -12,6 +12,8 @@ local CLASS = select(2, UnitClass("player"))
 local function GetColor(f)
     if UnitIsTapDenied(f.unit) then
         r, g, b = unpack(core.profile.colour_tapped)
+    elseif ns.modules.explosives and f.state.name == ns.mob_name then
+        r, g, b = 1, 0, 0
     elseif f.state.target and not UnitIsPlayer(f.unit) then
         r, g, b = kui.GetClassColour(CLASS, 2)
     else
@@ -57,12 +59,16 @@ function mod:Show(f)
 end
 
 function mod:Create(f)
-    hooksecurefunc(f, "UpdateFrameGlow", function(f)
-        UpdateFrameGlow(f)
-    end)
-    hooksecurefunc(f, "UpdateTargetArrows", function(f)
-        UpdateTargetArrows(f)
-    end)
+    if f.UpdateFrameGlow then
+        hooksecurefunc(f, "UpdateFrameGlow", function(f)
+            UpdateFrameGlow(f)
+        end)
+    end
+    if f.UpdateTargetArrows then
+        hooksecurefunc(f, "UpdateTargetArrows", function(f)
+            UpdateTargetArrows(f)
+        end)
+    end
 end
 
 function mod:Enable()

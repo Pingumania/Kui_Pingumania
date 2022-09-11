@@ -7,6 +7,8 @@ local mod = addon:NewPlugin("Custom_Explosives", 101, 5)
 if not mod then return end
 
 local mob_name
+ns.mob_name = mob_name
+
 local function icon_Show(self)
     self.v:Show()
     self.h:Show()
