@@ -61,7 +61,7 @@ end
 
 function mod:Show(f)
 	f.UpdateStateIcon = UpdateStateIcon
-	f.UpdateStateIconSize = nil
+	f.UpdateStateIconSize = function() end
 end
 
 function mod:PLAYER_ENTERING_WORLD()
