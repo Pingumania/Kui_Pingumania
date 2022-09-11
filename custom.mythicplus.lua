@@ -1,4 +1,5 @@
 local addon = KuiNameplates
+local core = KuiNameplatesCore
 local mod = addon:NewPlugin("Custom_MythicPlus", 101)
 if not mod then return end
 local HAS_ENABLED
@@ -73,37 +74,31 @@ function mod:Create(f)
     local custom = f.handler:CreateAuraFrame({
         id = "Custom_MythicAuras",
         max = 2,
-        size = 42,
-        squareness = 1,
-        point = {"CENTER", "LEFT", "RIGHT"},
+        size = core:Scale(core.profile.auras_icon_normal_size),
+        squareness = core.profile.auras_icon_squareness,
+        point = {"BOTTOMLEFT", "LEFT", "RIGHT"},
         rows = 1,
         filter = "HELPFUL",
-        centred = true,
         whitelist = {
             [226510] = true, -- Mythic Plus Affix: Sanguine
             [228318] = true, -- Mythic Plus Affix: Raging
             [343502] = true, -- Mythic Plus Affix: Inspiring
-            -- [260805] = true, -- Waycrest Manor: Focusing Iris
-            -- [263246] = true, -- Temple of Sethralis: Lightning Shield
-            -- [257597] = true, -- MOTHERLODE: Azerite Infusion
         },
     })
     custom:SetFrameLevel(0)
     custom:SetWidth(size)
     custom:SetHeight(size)
-    custom.icon_height = floor(size * .7)
-    custom.icon_ratio = (1 - (custom.icon_height / size)) / 2.5
-    custom:SetPoint("BOTTOM", f.bg, "TOP", 0, 42)
+    -- custom.icon_height = floor(size * .7)
+    -- custom.icon_ratio = (1 - (custom.icon_height / size)) / 2.5
+    custom:SetPoint("BOTTOMLEFT", f.bg, "TOPLEFT", 0, 42)
     f.MythicAuras = custom
 
     assert(not f.MythicBolster)
     local bolster = f.handler:CreateAuraFrame({
         id = "Custom_MythicBolster",
         max = 1,
-        size = 42,
-        squareness = 1,
-        timer_threshold = 10,
-        pulsate = false,
+        size = core:Scale(core.profile.auras_icon_normal_size),
+        squareness = core.profile.auras_icon_squareness,
         point = {"BOTTOMRIGHT", "RIGHT", "LEFT"},
         rows = 1,
         filter = "HELPFUL",
@@ -114,9 +109,9 @@ function mod:Create(f)
     bolster:SetFrameLevel(0)
     bolster:SetWidth(size)
     bolster:SetHeight(size)
-    bolster.icon_height = floor(size * .7)
-    bolster.icon_ratio = (1 - (bolster.icon_height / size)) / 2.5
-    bolster:SetPoint("BOTTOMLEFT", f.bg, "TOPLEFT", 1, 42)
+    -- bolster.icon_height = floor(size * .7)
+    -- bolster.icon_ratio = (1 - (bolster.icon_height / size)) / 2.5
+    bolster:SetPoint("BOTTOMRIGHT", f.bg, "TOPRIGHT", 0, 42)
     f.MythicBolster = bolster
 end
 
