@@ -5,6 +5,7 @@
 ## Version: v1.2
 ## Dependencies: Kui_Nameplates
 
+custom.castbar-text.lua
 custom.classpower-pos.lua
 custom.elite-indicator.lua
 custom.mythicplus.lua
