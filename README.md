@@ -13,7 +13,6 @@ Some are sourced from [here](https://github.com/kesava-wow/kuinameplates-customs
 - custom.mythicplus: 		Shows auras for myhtic plus affixes
 - custom.objectives: 		Shows a dot next to the name to indicate quests and world quests
 - custom.spell-alert: 		Castbar glows when an important spell is being cast in mythic plus or raids
-- custom.spell-target: 		Shows the name of the targeted player in a party
 - custom.spell-timer: 		Adds a timer to the right side of the castbar
 
 ## Credits
