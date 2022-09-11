@@ -19,6 +19,8 @@ jobs:
           output: RECENT_CHANGES.md
 
       - name: Create Multitoc Package
-        uses: BigWigsMods/packager@multitoc
+        uses: BigWigsMods/packager@v2
+        with:
+          args: -S
         env:
           GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}

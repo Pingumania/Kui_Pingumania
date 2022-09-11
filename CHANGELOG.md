@@ -1,3 +1,7 @@
+Kui Nameplates Mania | 1.5.0
+----------------------------
+- ToC update for 9.2.0
+
 Kui Nameplates Mania | 1.4.0
 ----------------------------
 - TOC update for 1.14.2
