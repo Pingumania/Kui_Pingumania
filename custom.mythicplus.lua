@@ -8,14 +8,21 @@ local mod = addon:NewPlugin("Custom_MythicPlus", 101)
 if not mod then return end
 local HAS_ENABLED
 
-local function UpdateAnchor(f)
-    local AURAS_OFFSET = core:Scale(core.profile.auras_offset)
+local function UpdateBolsterAnchor(f, hidden)
     f:ClearAllPoints()
-    if not f.MythicBolster.sibling:IsShown() then
-        f:SetPoint("BOTTOMRIGHT",f.parent.bg,"TOPRIGHT",core.profile.auras_centre,AURAS_OFFSET)
+    if hidden then
+        f:SetPoint("BOTTOMRIGHT", f.parent.bg, "TOPRIGHT", 0, core:Scale(core.profile.auras_offset))
     else
-        f:SetPoint("BOTTOMRIGHT",f.MythicBolster.sibling,"TOPRIGHT",0,AURAS_OFFSET)
+        f:SetPoint("BOTTOM", f.sibling, "TOP", 0, 3)
     end
+end
+
+local function OnHide(f)
+    UpdateBolsterAnchor(f.sibling, true)
+end
+
+local function OnShow(f)
+    UpdateBolsterAnchor(f.sibling)
 end
 
 local function GetBolsterCount(unit)
@@ -45,7 +52,6 @@ end
 
 local function PostUpdateAuraFrame(f)
     if f.id ~= "Custom_MythicBolster" then return end
-    UpdateAnchor(f)
     local c = GetBolsterCount(f.parent.unit)
     if c > 1 then
         for _, button in ipairs(f.buttons) do
@@ -89,21 +95,22 @@ function mod:Create(f)
         max = 2,
         size = core:Scale(core.profile.auras_icon_normal_size),
         squareness = core.profile.auras_icon_squareness,
-        point = {"BOTTOMLEFT", "LEFT", "RIGHT"},
+        point = {"BOTTOMRIGHT", "RIGHT", "LEFT"},
         rows = 1,
         filter = "HELPFUL",
         whitelist = {
             [226510] = true, -- Mythic Plus Affix: Sanguine
             [228318] = true, -- Mythic Plus Affix: Raging
-            [343502] = true, -- Mythic Plus Affix: Inspiring
+            [343502] = true -- Mythic Plus Affix: Inspiring
         },
     })
     custom:SetFrameLevel(0)
     custom:SetWidth(size)
     custom:SetHeight(size)
-    custom:SetPoint("BOTTOMLEFT", f.bg, "TOPLEFT", 0, core:Scale(core.profile.auras_offset))
-    f.MythicAuras = custom
-
+    custom:SetPoint("BOTTOMRIGHT", f.bg, "TOPRIGHT", 0, core:Scale(core.profile.auras_offset))
+    custom:HookScript("OnShow", OnShow)
+    custom:HookScript("OnHide", OnHide)
+    
     assert(not f.MythicBolster)
     local bolster = f.handler:CreateAuraFrame({
         id = "Custom_MythicBolster",
@@ -120,8 +127,12 @@ function mod:Create(f)
     bolster:SetFrameLevel(0)
     bolster:SetWidth(size)
     bolster:SetHeight(size)
-    bolster:SetPoint("BOTTOMRIGHT", f.bg, "TOPRIGHT", 0, 42)
+    bolster:SetPoint("BOTTOMRIGHT", f.bg, "TOPRIGHT", 0, core:Scale(core.profile.auras_offset))
+
+    custom.sibling = bolster
     bolster.sibling = custom
+
+    f.MythicAuras = custom
     f.MythicBolster = bolster
 end
 
