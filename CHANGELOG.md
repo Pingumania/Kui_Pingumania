@@ -1,3 +1,11 @@
+Kui Nameplates Mania | 1.4.0
+----------------------------
+- TOC update for 1.14.2
+- TOC update for 2.5.3
+- Fix Rogue Kyrian combo points.
+- Added arrows and glow to target helper module.
+- Better anchoring for mythic plus auras.
+
 Kui Nameplates Mania | 1.3.0
 ----------------------------
 - TOC update for 9.1.5
