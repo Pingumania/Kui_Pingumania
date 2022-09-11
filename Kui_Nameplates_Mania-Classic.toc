@@ -5,7 +5,7 @@
 ## Version: @project-version@
 ## Dependencies: Kui_Nameplates
 
-libs\libs.xml
+embeds.xml
 init.lua
 custom.castbar-text.lua
 custom.classpower-pos.lua

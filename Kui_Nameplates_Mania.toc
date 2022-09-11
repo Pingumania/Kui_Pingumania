@@ -8,7 +8,7 @@
 ## Dependencies: Kui_Nameplates
 ## SavedVariables: KuiNameplatesManiaDB
 
-libs\libs.xml
+embeds.xml
 init.lua
 custom.castbar-text.lua
 custom.classpower-pos.lua
