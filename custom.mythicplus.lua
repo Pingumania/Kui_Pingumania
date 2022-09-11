@@ -15,25 +15,25 @@ local function GetBolsterCount(unit)
 	return c
 end
 
-local function PostCreateAuraButton(f, button)
-	if f.id ~= "Custom_MythicBolster" then return end
+local function PostCreateAuraButton(plate, button)
+	if plate.id ~= "Custom_MythicBolster" then return end
 	button.count:ClearAllPoints()
 	button.count:SetPoint("Center", button)
 	local font, size, flag = button.cd:GetFont()
 	button.count.fontobject_size = size + 10
 end
 
-local function PostDisplayAuraButton(f, button)
-	if f.id ~= "Custom_MythicBolster" then return end
-	button.count:SetText(GetBolsterCount(f.parent.unit) > 1 or "")
+local function PostDisplayAuraButton(plate, button)
+	if plate.id ~= "Custom_MythicBolster" then return end
+	button.count:SetText(GetBolsterCount(plate.parent.unit) > 1 or "")
 	button.count:Show()
 end
 
-local function PostUpdateAuraFrame(f)
-	if f.id ~= "Custom_MythicBolster" then return end
-	local c = GetBolsterCount(f.parent.unit)
+local function PostUpdateAuraFrame(plate)
+	if plate.id ~= "Custom_MythicBolster" then return end
+	local c = GetBolsterCount(plate.parent.unit)
 	if c > 1 then
-		for _, button in ipairs(f.buttons) do
+		for _, button in ipairs(plate.buttons) do
 			if button.spellid == 209859 then
 				button.count:SetText(c)
 				button.count:Show()
@@ -44,34 +44,32 @@ local function PostUpdateAuraFrame(f)
 end
 
 local function EnableAll()
-	for _, f in addon:Frames() do
-		if not f.MythicAuras then
-			mod:Create(f)
+	for _, plate in addon:Frames() do
+		if not plate.MythicAuras then
+			mod:Create(plate)
 		else
-			f.MythicAuras:Enable()
-			f.MythicBolster:Enable()
+			plate.MythicAuras:Enable()
+			plate.MythicBolster:Enable()
 		end
 	end
 	mod:RegisterMessage("Create")
 	HAS_ENABLED = true
-	-- print("Custom_MythicPlus enabled.")
 end
 
 local function DisableAll()
-	for _, f in addon:Frames() do
-		if f.MythicAuras then
-			f.MythicAuras:Disable()
-			f.MythicBolster:Disable()
+	for _, plate in addon:Frames() do
+		if plate.MythicAuras then
+			plate.MythicAuras:Disable()
+			plate.MythicBolster:Disable()
 		end
 	end
 	mod:UnregisterMessage("Create")
-	-- print("Custom_MythicPlus disabled.")
 end
 
-function mod:Create(f)
+function mod:Create(plate)
 	local size = 28
-	assert(not f.MythicAuras)
-	local custom = f.handler:CreateAuraFrame({
+	assert(not plate.MythicAuras)
+	local custom = plate.handler:CreateAuraFrame({
 		id = "Custom_MythicAuras",
 		max = 2,
 		size = core:Scale(core.profile.auras_icon_normal_size),
@@ -88,13 +86,11 @@ function mod:Create(f)
 	custom:SetFrameLevel(0)
 	custom:SetWidth(size)
 	custom:SetHeight(size)
-	-- custom.icon_height = floor(size * .7)
-	-- custom.icon_ratio = (1 - (custom.icon_height / size)) / 2.5
-	custom:SetPoint("BOTTOMLEFT", f.bg, "TOPLEFT", 0, 42)
-	f.MythicAuras = custom
+	custom:SetPoint("BOTTOMLEFT", plate.bg, "TOPLEFT", 0, 42)
+	plate.MythicAuras = custom
 
-	assert(not f.MythicBolster)
-	local bolster = f.handler:CreateAuraFrame({
+	assert(not plate.MythicBolster)
+	local bolster = plate.handler:CreateAuraFrame({
 		id = "Custom_MythicBolster",
 		max = 1,
 		size = core:Scale(core.profile.auras_icon_normal_size),
@@ -109,10 +105,8 @@ function mod:Create(f)
 	bolster:SetFrameLevel(0)
 	bolster:SetWidth(size)
 	bolster:SetHeight(size)
-	-- bolster.icon_height = floor(size * .7)
-	-- bolster.icon_ratio = (1 - (bolster.icon_height / size)) / 2.5
-	bolster:SetPoint("BOTTOMRIGHT", f.bg, "TOPRIGHT", 0, 42)
-	f.MythicBolster = bolster
+	bolster:SetPoint("BOTTOMRIGHT", plate.bg, "TOPRIGHT", 0, 42)
+	plate.MythicBolster = bolster
 end
 
 function mod:PLAYER_ENTERING_WORLD()

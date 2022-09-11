@@ -2,8 +2,8 @@ local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_EnemyAuras", 101)
 if not mod then return end
 
-function mod:Create(f)
-	local custom = f.handler:CreateAuraFrame({
+function mod:Create(plate)
+	local custom = plate.handler:CreateAuraFrame({
 		id = "Custom_EnemyAuras",
 		max = 2,
 		size = 42,
@@ -30,10 +30,13 @@ function mod:Create(f)
 	custom:SetFrameLevel(0)
 	custom:SetWidth(42)
 	custom:SetHeight(42)
-	custom:SetPoint("BOTTOM", f.bg, "TOP", 0, 42)
-	f.EnemyAuras = custom
+	custom:SetPoint("BOTTOM", plate.bg, "TOP", 0, 42)
+	plate.EnemyAuras = custom
 end
 
 function mod:OnEnable()
+	for _, plate in addon:Frames() do
+		self:Create(plate)
+	end
 	mod:RegisterMessage("Create")
 end

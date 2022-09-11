@@ -176,6 +176,9 @@ function mod:QUEST_LOG_UPDATE()
 end
 
 function mod:OnEnable()
+	for _, f in addon:Frames() do
+		self:Create(f)
+	end
 	self:RegisterMessage("Create")
 	self:RegisterMessage("Show")
 	self:RegisterMessage("Hide")

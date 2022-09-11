@@ -15,50 +15,50 @@ local function icon_Hide(self)
 	self.i:Hide()
 end
 
-function mod:Create(f)
-	f.feicon = {}
+function mod:Create(plate)
+	plate.feicon = {}
 
-	local v = f:CreateTexture(nil, "ARTWORK", nil, 1)
+	local v = plate:CreateTexture(nil, "ARTWORK", nil, 1)
 	v:SetTexture("interface/buttons/white8x8")
 	v:SetVertexColor(1, 0, 0, .5)
 	v:SetHeight(30000)
 	v:SetWidth(3)
-	f.feicon.v = v
+	plate.feicon.v = v
 
-	local h = f:CreateTexture(nil, "ARTWORK", nil, 1)
+	local h = plate:CreateTexture(nil, "ARTWORK", nil, 1)
 	h:SetTexture("interface/buttons/white8x8")
 	h:SetVertexColor(1, 0, 0, .5)
 	h:SetHeight(3)
 	h:SetWidth(30000)
-	f.feicon.h = h
+	plate.feicon.h = h
 
-	local i = f:CreateTexture(nil, "ARTWORK", nil, 2)
+	local i = plate:CreateTexture(nil, "ARTWORK", nil, 2)
 	i:SetTexture(135799)
 	i:SetVertexColor(1, 1, 1, 1)
 	i:SetHeight(50)
 	i:SetWidth(50)
-	f.feicon.i = i
+	plate.feicon.i = i
 
-	i:SetPoint("BOTTOM", f, "TOP")
+	i:SetPoint("BOTTOM", plate, "TOP")
 	v:SetPoint("CENTER", i)
 	h:SetPoint("CENTER", i)
 
-	f.feicon.Show = icon_Show
-	f.feicon.Hide = icon_Hide
-	f.feicon:Hide()
+	plate.feicon.Show = icon_Show
+	plate.feicon.Hide = icon_Hide
+	plate.feicon:Hide()
 end
 
-function mod:Show(f)
-	if f.state.name ~= mob_name then return end
-	if not f.feicon then
-		self:Create(f)
+function mod:Show(plate)
+	if plate.state.name ~= mob_name then return end
+	if not plate.feicon then
+		self:Create(plate)
 	end
-	f.feicon:Show()
+	plate.feicon:Show()
 end
 
-function mod:Hide(f)
-	if f.feicon then
-		f.feicon:Hide()
+function mod:Hide(plate)
+	if plate.feicon then
+		plate.feicon:Hide()
 	end
 end
 

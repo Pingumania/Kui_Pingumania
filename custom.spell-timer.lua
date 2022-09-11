@@ -3,41 +3,43 @@ local core = KuiNameplatesCore
 local mod = addon:NewPlugin("Custom_SpellTimer", 101)
 if not mod then return end
 
-function mod:CastBarShow(f)
-	f.SpellTimer:Show()
+local format = format
 
-	f.CastBarUpdateFrame:HookScript("OnUpdate", function(self, elapsed)
+function mod:CastBarShow(plate)
+	plate.SpellTimer:Show()
+	plate.CastBarUpdateFrame:HookScript("OnUpdate", function(self, elapsed)
 		local value
-		if f.cast_state.channel then
-			value = f.CastBar:GetValue()
+		if plate.cast_state.channel then
+			value = plate.CastBar:GetValue()
 		else
-			value = (f.cast_state.end_time - f.cast_state.start_time) - (GetTime() - f.cast_state.start_time)
-		end		
+			value = (plate.cast_state.end_time - plate.cast_state.start_time) - (GetTime() - plate.cast_state.start_time)
+		end
 		if value < 99 and value >= 0 then
-			f.SpellTimer:SetText(string.format("%.1f", value))
+			plate.SpellTimer:SetText(format("%.1f", value))
+		elseif value >= 99 then
+			plate.SpellTimer:SetText("~")
 		end
 	end)
 end
 
-function mod:CastBarHide(f)
-	f.SpellTimer:Hide()
+function mod:CastBarHide(plate)
+	plate.SpellTimer:Hide()
 end
 
-function mod:Show(f)
-	local font, _, flags = f.NameText:GetFont()
-	f.SpellTimer:SetFont(font, core.profile.font_size_small, flags)
-	f.SpellTimer:SetPoint("RIGHT", f.CastBar.bg, "RIGHT", -2, 0)
-end
-
-function mod:Create(f)
-	if f.SpellTimer then return end
-	local timer = f:CreateFontString(nil, "OVERLAY")
-	f.SpellTimer = timer
+function mod:Create(plate)
+	if plate.SpellTimer then return end
+	local timer = plate:CreateFontString(nil, "OVERLAY")
+	local font, _, flags = plate.NameText:GetFont()
+	timer:SetFont(font, core.profile.font_size_small, flags)
+	timer:SetPoint("RIGHT", plate.CastBar.bg, "RIGHT", -2, 0)
+	plate.SpellTimer = timer
 end
 
 function mod:OnEnable()
+	for _, plate in addon:Frames() do
+		self:Create(plate)
+	end
 	self:RegisterMessage("CastBarShow")
 	self:RegisterMessage("CastBarHide")
 	self:RegisterMessage("Create")
-	self:RegisterMessage("Show")
 end
