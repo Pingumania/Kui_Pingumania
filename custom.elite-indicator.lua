@@ -1,62 +1,76 @@
 local addon = KuiNameplates
 local core = KuiNameplatesCore
+local kui = LibStub("Kui-1.0")
 local mod = addon:NewPlugin("Custom_EliteIndicator", 101)
 if not mod then return end
 
+local instanced_pvp
 local ELITE_INDICATOR = true
 
-local function UpdateLevelColor(f)
-	local in_instance, instance_type = IsInInstance()
-	local instanced_pvp = in_instance and (instance_type == "arena" or instance_type == "pvp")
-	local level = instanced_pvp and UnitLevel(f.unit) or UnitEffectiveLevel(f.unit)
-	local d = GetQuestDifficultyColor(level <= 0 and 999 or level)
-	f.LevelText:SetTextColor(d.r, d.g, d.b)
-end
+local function UpdateLevel(f)
+	f = f.parent
 
-local function UpdateLevelPos(f, x)
-	f.LevelText:ClearAllPoints()
-
-	if f.state.no_name then
-		f.LevelText:SetPoint("LEFT", x, 0)
+	if kui.CLASSIC then
+		f.state.level = UnitLevel(f.unit) or 0
 	else
-		f.LevelText:SetPoint("BOTTOMLEFT", x, core.profile.bot_vertical_offset)
+		f.state.level = instanced_pvp and UnitLevel(f.unit) or UnitEffectiveLevel(f.unit) or 0
 	end
-end
 
-local function UpdateLevelText(f)
-	if f.IN_NAMEONLY then return end
-
-	local c = UnitClassification(f.unit)
-
-	if not core.profile.level_text or f.state.minus or f.state.personal then
-		if c == "elite" then
-			f.LevelText:SetText("E")
-		elseif c == "rareelite" then
-			f.LevelText:SetText("RE")
-		elseif c == "rare" then
-			f.LevelText:SetText("R")
-		else
-			f.LevelText:Hide()
-			return
+	if f.elements.LevelText then
+		local l, cl, d = kui.UnitLevel(f.unit, nil, instanced_pvp)
+		if l == "??" then
+			l = "B"
 		end
-		UpdateLevelPos(f, 3)
-	else
-		UpdateLevelPos(f, 2)
+		cl = strupper(gsub(cl, "+", "E"))
+		if type(l) == "number" and l >= GetMaxLevelForPlayerExpansion() then
+			f.LevelText:SetText(cl)
+		else
+			f.LevelText:SetText(l..cl)
+		end
+		f.LevelText:SetTextColor(d.r, d.g, d.b)
 	end
-	UpdateLevelColor(f)
-	f.LevelText:Show()
+end
+
+local function UpdateStateIcon(f)
+	if not core.profile.state_icons or f.IN_NAMEONLY or (f.elements.LevelText and f.LevelText:IsShown()) then
+		f.StateIcon:Hide()
+		return
+	end
+
+	if f.state.classification == "elite" then
+		f.StateIcon:SetAtlas("nameplates-icon-elite-gold")
+		f.StateIcon:SetSize(20, 20)
+		f.StateIcon:SetVertexColor(1, 1, 1)
+		f.StateIcon:Show()
+	elseif f.state.classification == "rareelite" then
+		f.StateIcon:SetAtlas("vignettekill")
+		f.StateIcon:SetSize(18, 18)
+		f.StateIcon:SetVertexColor(1, 1, 1)
+		f.StateIcon:Show()
+	elseif f.state.classification == "rare" then
+		f.StateIcon:SetAtlas("vignettekill")
+		f.StateIcon:SetSize(18, 18)
+		f.StateIcon:SetVertexColor(1, 1, 1)
+		f.StateIcon:Show()
+	else
+		f.StateIcon:Hide()
+	end
 end
 
 function mod:Show(f)
-	if f.StateIcon then
-		f.StateIcon:SetPoint("LEFT", f.HealthBar, "LEFT", 0, 0)
-	end
+	f.UpdateStateIcon = UpdateStateIcon
+	f.UpdateStateIconSize = nil
+end
 
-	if ELITE_INDICATOR then
-		f.UpdateLevelText = UpdateLevelText
-	end
+function mod:PLAYER_ENTERING_WORLD()
+	local in_instance, instance_type = IsInInstance()
+	instanced_pvp = in_instance and (instance_type == "arena" or instance_type == "pvp")
 end
 
 function mod:OnEnable()
-	self:RegisterMessage("Show")
+	if ELITE_INDICATOR then
+		self:RegisterMessage("Show")
+		self:RegisterEvent("PLAYER_ENTERING_WORLD")
+		addon.Nameplate.UpdateLevel = UpdateLevel
+	end
 end
