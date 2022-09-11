@@ -7,8 +7,8 @@ local HAS_ENABLED
 local function GetBolsterCount(unit)
 	local c = 0
 	AuraUtil.ForEachAura(unit, "HELPFUL", nil, function(...)
-		local name = ...
-		if name == "Bolster" then
+		local _, _, _, _, _, _, _, _, _, spellID = ...
+		if spellID == 209859 then
 			c = c + 1
 		end
 	end)
