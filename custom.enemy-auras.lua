@@ -34,6 +34,6 @@ function mod:Create(f)
     f.EnemyAuras = custom
 end
 
-function mod:Initialise()
+function mod:OnEnable()
     mod:RegisterMessage("Create")
 end
