@@ -9,6 +9,9 @@ local important_spells = {
     [2162] = { -- Torghast
         
     },
+    [2296] = { -- Castle Nathria
+        {spellID = 337110}, -- Council: Dreadbolt Volley
+    },
     [2291] = { -- De Other Side
         -- {spellID = 328707}, -- Risen Cultist: Scribe
         {spellID = 334076}, -- Death Speaker: Shadowcore
@@ -134,7 +137,7 @@ end
 function mod:PLAYER_ENTERING_WORLD()
     if IsInInstance() then
         local _, instanceType, difficulty, _, _, _, _, instanceID = GetInstanceInfo()
-        if instanceType == "party" or instanceType == "scenario" then
+        if instanceType == "raid" or instanceType == "party" or instanceType == "scenario" then
             currentInstanceID = instanceID
             self:RegisterMessage("CastBarShow")
             self:RegisterMessage("CastBarHide")
