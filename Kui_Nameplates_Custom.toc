@@ -5,10 +5,10 @@
 ## Version: v1.2
 ## Dependencies: Kui_Nameplates
 
+libs\libs.xml
 custom.castbar-text.lua
 custom.classpower-pos.lua
 custom.elite-indicator.lua
 custom.mythicplus.lua
 custom.objectives.lua
-custom.enemy-auras.lua
-custom.target-arrows.lua
+custom.spell-alert.lua
