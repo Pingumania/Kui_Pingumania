@@ -136,7 +136,7 @@ function mod:PLAYER_ENTERING_WORLD()
     end
 end
 
-function mod:Initialise()
+function mod:OnEnable()
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("UPDATE_INSTANCE_INFO", "PLAYER_ENTERING_WORLD")
     self:AddCallback("Auras", "PostCreateAuraButton", PostCreateAuraButton)

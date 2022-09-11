@@ -7,6 +7,6 @@ function mod:CastBarShow(f)
 	f.SpellName:SetPoint('BOTTOMRIGHT', f.CastBar.bg, 0, 0)
 end
 
-function mod:Initialise()
+function mod:OnEnable()
     self:RegisterMessage("CastBarShow")
 end

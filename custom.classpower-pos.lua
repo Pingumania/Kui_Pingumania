@@ -9,6 +9,6 @@ local function PostPositionFrame(f, parent)
 	end
 end
 
-function mod:Initialise()
+function mod:OnEnable()
 	self:AddCallback("ClassPowers", "PostPositionFrame", PostPositionFrame)
 end

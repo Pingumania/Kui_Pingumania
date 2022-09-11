@@ -145,7 +145,7 @@ function mod:PLAYER_ENTERING_WORLD()
     self:UnregisterMessage("CastBarHide")
 end
 
-function mod:Initialise()
+function mod:OnEnable()
     plugin_fading = addon:GetPlugin("Fading")
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("UPDATE_INSTANCE_INFO", "PLAYER_ENTERING_WORLD")

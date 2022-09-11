@@ -81,10 +81,7 @@ function mod:PLAYER_ENTERING_WORLD()
     self:UnregisterMessage('Show')
 end
 
-function mod:Initialise()
-    self:RegisterEvent('PLAYER_ENTERING_WORLD')
-    self:RegisterEvent('UPDATE_INSTANCE_INFO','PLAYER_ENTERING_WORLD')
-    self:RegisterMessage('Hide')
+function mod:OnEnable()
 
     local locale = GetLocale()
     local names = {
