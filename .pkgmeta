@@ -1,5 +1,7 @@
+externals:
+  libs/LibCustomGlow-1.0: https://github.com/Stanzilla/LibCustomGlow
+
 ignore:
-  - Assets
   - *.md
 
 manual-changelog:
