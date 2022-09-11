@@ -7,10 +7,29 @@ local plugin_fading
 local currentInstanceID
 local important_spells = {
 	[2162] = { -- Torghast
-		
+		{spellID = 330438}, -- Watchers of Death: Fearsome Howl
+		{spellID = 294362}, -- Deadsoul Echo: Wave of Suffering
+		{spellID = 294517}, -- Deadsoul Scavenger: Phasing Roar
+		{spellID = 298844}, -- Deadsoul Shambler: Fearsome Howl
+		{spellID = 353769}, -- Karthazel: Shadowbolt Volley
+		{spellID = 329975}, -- Empowered Imperial Consular: Shadow Bolt Volley
+		{spellID = 329930}, -- Stonewing Ravager: Terrifying Screech
+		{spellID = 296523}, -- Mawsworn Seeker: Deafening Howl
+		{spellID = 329422}, -- Mawsworn Flametender: Inner Flames
+		{spellID = 353721}, -- Sath'zuul: Sanguine Extraction
+		{spellID = 242391}, -- Coldheart Agent: Terror
 	},
 	[2296] = { -- Castle Nathria
 		{spellID = 337110}, -- Council: Dreadbolt Volley
+	},
+	[2450] = { -- Sanctum of Domination
+		{spellID = 350286}, -- Nine: Song of Dissolution
+		{spellID = 350287}, -- Nine: Song of Dissolution
+		{spellID = 350339}, -- Nine: Siphon Vitality
+		{spellID = 348428}, -- Kel'Thuzad: Piercing Wail
+		{spellID = 355212}, -- Mawsworn Seeker: Fearsome Howl
+		{spellID = 357402}, -- Mawsworn Scryer: Soul Bolt Volley
+		{spellID = 355540}, -- Sylvanas: Ruin
 	},
 	[2291] = { -- De Other Side
 		-- {spellID = 328707}, -- Risen Cultist: Scribe
@@ -109,6 +128,15 @@ local important_spells = {
 		{spellID = 333292}, -- Sathel the Accursed (Boss): Searing Death
 		{spellID = 330810}, -- Shackled Soul: Bind Soul
 		{spellID = 324589}, -- Deathwalker: Death Bolt
+	},
+	[2441] = { -- Tazavesh
+		{spellID = 356031}, -- Interrogation Specialist: Stasis Beam
+		{spellID = 355934}, -- Support Officer: Hard Light Barrier
+		{spellID = 350922}, -- Speakeasy Security: Menacing Shout
+		{spellID = 357188}, -- So'azmi (Boss): Double Technique
+		{spellID = 357284, type = "heal"}, -- Devoted Accomplice: Reinvigorate
+		{spellID = 357260}, -- Focused Ritualist: Unstable Rift
+		{spellID = 351119}, -- So'Cartel Assassin: Shuriken Blitz
 	}
 }
 
