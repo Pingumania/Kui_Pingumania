@@ -15,6 +15,7 @@ custom.enemy-auras.lua
 custom.explosives.lua
 custom.mythicplus.lua
 custom.name-left.lua
+custom.name-short.lua
 custom.objectives.lua
 custom.spell-alert.lua
 custom.spell-timer.lua
