@@ -2,5 +2,5 @@ externals:
   libs/LibCustomGlow-1.0: https://github.com/Stanzilla/LibCustomGlow
 
 manual-changelog:
-  filename: CHANGELOG.md
+  filename: RECENT_CHANGES.md
   markup-type: markdown
