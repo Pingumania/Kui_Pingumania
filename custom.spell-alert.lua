@@ -2,9 +2,10 @@ local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_SpellAlert", 101)
 local LCG = LibStub("LibCustomGlow-1.0")
 if not mod then return end
+local DEBUG = false
 
 local plugin_fading
-local currentInstanceID
+local currentInstanceID, currentInstanceName
 local important_spells = {
 	[2162] = { -- Torghast
 		{spellID = 330438}, -- Watchers of Death: Fearsome Howl
@@ -140,33 +141,82 @@ local important_spells = {
 	}
 }
 
-function mod:CastBarShow(f)
+local function debug(plate)
+	local db = KuiNameplatesManiaDB
+	local _, name, spellID, instance
+
+	if currentInstanceID == 2162 then
+		local zone = GetMinimapZoneText()
+		instance = tostring(currentInstanceID.." - "..currentInstanceName.." - "..zone)
+	else
+		instance = tostring(currentInstanceID.." - "..currentInstanceName)
+	end
+
+	if plate.cast_state.channel then
+		name, _, _, _, _, _, _, _, spellID = UnitChannelInfo(plate.unit)
+	else
+		name, _, _, _, _, _, _, _, spellID = UnitCastingInfo(plate.unit)
+	end
+
+	local unit = GetUnitName(plate.unit)
+	local interruptible = tostring(plate.cast_state.interruptible)
+
+	if not name or not spellID or not unit or not interruptible then return end
+
+	local match = false
+	local entry = tostring(spellID.." | "..name.." | "..interruptible)
+
+	if not db[instance] then
+		db[instance] = {}
+	end
+
+	if not db[instance][unit] then
+		db[instance][unit] = {}
+	end
+
+	if #db[instance][unit] == 0 then
+		tinsert(db[instance][unit], entry)
+	else
+		for i = 1, #db[instance][unit] do
+			if db[instance][unit][i] == entry then
+				match = true
+			end
+		end
+		if match == false then
+			tinsert(db[instance][unit], entry)
+		end
+	end
+end
+
+function mod:CastBarShow(plate)
 	if not important_spells[currentInstanceID] then return end
+	if DEBUG then debug(plate) end
+
 	for _, spell in pairs(important_spells[currentInstanceID]) do
 		local name = GetSpellInfo(spell.spellID)
-		if f.cast_state.name == name and f.cast_state.interruptible then
+		if plate.cast_state.name == name and plate.cast_state.interruptible then
 			local color
 			if spell.type and spell.type == "heal" then
 				color = {0.32, 0.95, 0.32, 1}
 			elseif spell.prio then
 				color = {1.00, 0.11, 0.11, 1}
 			end
-			f:SetAlpha(1)
-			LCG.PixelGlow_Start(f.CastBar, color or nil, nil, nil, nil, 1)
+			-- plate:SetAlpha(1)
+			LCG.PixelGlow_Start(plate.CastBar, color or nil, nil, nil, nil, 1)
 		end
 	end
 end
 
-function mod:CastBarHide(f)
-	plugin_fading:UpdateFrame(f)
-	LCG.PixelGlow_Stop(f.CastBar)
+function mod:CastBarHide(plate)
+	-- plugin_fading:UpdateFrame(plate)
+	LCG.PixelGlow_Stop(plate.CastBar)
 end
 
 function mod:PLAYER_ENTERING_WORLD()
 	if IsInInstance() then
-		local _, instanceType, difficulty, _, _, _, _, instanceID = GetInstanceInfo()
+		local instanceName, instanceType, difficulty, _, _, _, _, instanceID = GetInstanceInfo()
 		if instanceType == "raid" or instanceType == "party" or instanceType == "scenario" then
-			currentInstanceID = instanceID
+			currentInstanceName, currentInstanceID = instanceName, instanceID
 			self:RegisterMessage("CastBarShow")
 			self:RegisterMessage("CastBarHide")
 			return
@@ -177,7 +227,18 @@ function mod:PLAYER_ENTERING_WORLD()
 end
 
 function mod:OnEnable()
+	KuiNameplatesManiaDB = KuiNameplatesManiaDB or {}
 	plugin_fading = addon:GetPlugin("Fading")
 	self:RegisterEvent("PLAYER_ENTERING_WORLD")
 	self:RegisterEvent("UPDATE_INSTANCE_INFO", "PLAYER_ENTERING_WORLD")
 end
+
+local function SlashHandler(cmd)
+	if (cmd == "wipe") then
+		KuiNameplatesManiaDB = {}
+		print("Kui_Nameplates_Mania wiped.")
+	end
+end
+
+SLASH_KUIMANIA1 = "/kuimania"
+SlashCmdList["KUIMANIA"] = function(cmd) SlashHandler(cmd) end
