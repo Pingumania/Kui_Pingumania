@@ -3,6 +3,7 @@ externals:
 
 ignore:
   - *.md
+  - assets
 
 manual-changelog:
   filename: CHANGELOG.md
