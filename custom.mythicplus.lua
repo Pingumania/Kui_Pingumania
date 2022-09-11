@@ -124,7 +124,7 @@ function mod:PLAYER_ENTERING_WORLD()
     if IsInInstance() then
         local _, instanceType, difficulty = GetInstanceInfo()
         if instanceType == "party" then
-            local isChallengeMode = select (4, GetDifficultyInfo(difficulty))
+            local name, groupType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID = GetDifficultyInfo(difficulty)
             if isChallengeMode then
                 EnableAll()
                 return
@@ -139,6 +139,7 @@ end
 function mod:OnEnable()
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("UPDATE_INSTANCE_INFO", "PLAYER_ENTERING_WORLD")
+    self:RegisterEvent("CHALLENGE_MODE_START", "PLAYER_ENTERING_WORLD")
     self:AddCallback("Auras", "PostCreateAuraButton", PostCreateAuraButton)
     self:AddCallback("Auras", "PostDisplayAuraButton", PostDisplayAuraButton)
     self:AddCallback("Auras", "PostUpdateAuraFrame", PostUpdateAuraFrame)
