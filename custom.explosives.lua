@@ -1,5 +1,7 @@
 local _, ns = ...
 if not ns.Retail then return end
+if not ns.modules.explosives then return end
+
 local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_Explosives", 101, 5)
 if not mod then return end

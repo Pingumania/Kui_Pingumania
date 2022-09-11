@@ -1,3 +1,6 @@
+local _, ns = ...
+if not ns.modules.spell_timer then return end
+
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 local mod = addon:NewPlugin("Custom_SpellTimer", 101)

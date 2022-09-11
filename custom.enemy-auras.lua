@@ -1,3 +1,6 @@
+local _, ns = ...
+if not ns.modules.enemy_auras then return end
+
 local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_EnemyAuras", 101)
 if not mod then return end

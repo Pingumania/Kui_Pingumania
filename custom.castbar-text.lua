@@ -1,3 +1,6 @@
+local _, ns = ...
+if not ns.modules.castbar_text then return end
+
 local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_CastbarText", 101)
 if not mod then return end

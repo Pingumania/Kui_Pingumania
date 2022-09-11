@@ -1,3 +1,6 @@
+local _, ns = ...
+if not ns.modules.name_short then return end
+
 local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_NameShort", 101)
 if not mod then return end

@@ -1,5 +1,7 @@
 local _, ns = ...
 if not ns.Retail then return end
+if not ns.modules.spell_alert then return end
+
 local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_SpellAlert", 101)
 local LCG = LibStub("LibCustomGlow-1.0")

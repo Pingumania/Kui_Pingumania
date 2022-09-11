@@ -1,5 +1,7 @@
 local _, ns = ...
 if not ns.Retail then return end
+if not ns.modules.objectives then return end
+
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 local mod = addon:NewPlugin("Custom_Objectives", 101)
