@@ -8,6 +8,7 @@ local function ScaleTextOffset(v)
 end
 
 local function UpdateNameTextPosition(plate)
+    if plate.IN_NAMEONLY then return end
     plate.NameText:SetJustifyH("LEFT")
 	plate.NameText:SetPoint("BOTTOMLEFT", plate.HealthBar, "TOPLEFT", 0, ScaleTextOffset(core.profile.name_vertical_offset))
     plate.NameText:SetPoint("RIGHT", plate.HealthBar, 0, 0)
