@@ -1,3 +1,4 @@
+local _, ns = ...
 if not ns.Retail then return end
 local addon = KuiNameplates
 local core = KuiNameplatesCore
