@@ -22,7 +22,7 @@ end
 function mod:Create(f)
     f.feicon = {}
 
-    local v = plate:CreateTexture(nil, "ARTWORK", nil, 1)
+    local v = f:CreateTexture(nil, "ARTWORK", nil, 1)
     v:SetTexture("interface/buttons/white8x8")
     v:SetVertexColor(1, 0, 0, .5)
     v:SetHeight(30000)
