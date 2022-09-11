@@ -7,7 +7,7 @@ if not mod then return end
 
 local instanced_pvp
 local ELITE_INDICATOR = true
-local MAX_LEVEL = ns.Mainline and GetMaxLevelForPlayerExpansion() or ns.BCC and 70 or ns.Classic and 60
+local MAX_LEVEL = ns.Retail and GetMaxLevelForPlayerExpansion() or ns.BCC and 70 or ns.Classic and 60
 
 local function UpdateLevel(plate)
 	plate = plate.parent
