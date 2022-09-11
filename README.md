@@ -1,4 +1,4 @@
-# Kui_Nameplates_pngmn
+# Kui_Nameplates_Mania
 
 Collection of my custom modules for the [KuiNameplates](https://wow.curseforge.com/projects/kuinameplates) World of Warcraft addon.  
 Some are sourced from [here](https://github.com/kesava-wow/kuinameplates-customs).

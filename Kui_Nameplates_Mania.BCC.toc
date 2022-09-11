@@ -1,6 +1,6 @@
 ## Interface: 20501
 ## Author: pngmn
-## Title: Kui |cff9966ffNameplates:|r |cffffffffpngmn|r
+## Title: Kui |cff9966ffNameplates:|r |cffffffffMania|r
 ## Notes: Custom nameplate scripts
 ## Version: @project-version@
 ## Dependencies: Kui_Nameplates
