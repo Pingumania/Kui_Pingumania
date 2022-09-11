@@ -19,6 +19,7 @@ custom.mythicplus.lua
 custom.name-left.lua
 custom.name-short.lua
 custom.objectives.lua
+custom.rogue-kyrian-fix.lua
 custom.spell-alert.lua
 custom.spell-timer.lua
 custom.target-helper.lua
