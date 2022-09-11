@@ -1,8 +1,8 @@
 ## Interface: 90005
-## Author: Pingumania
-## Title: Kui |cff9966ffNameplates:|r |cffffffffCustom|r
+## Author: pngmn
+## Title: Kui |cff9966ffNameplates:|r |cffffffffpngmn|r
 ## Notes: Custom nameplate scripts
-## Version: 9.0.5-1
+## Version: @project-version@
 ## Dependencies: Kui_Nameplates
 
 libs\libs.xml
