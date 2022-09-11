@@ -5,11 +5,8 @@ on:
     tags:
       - '*'
 
-env:
-  GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
-
 jobs:
-  release: 
+  release:
     runs-on: ubuntu-latest
     steps:
       - name: Clone Project
@@ -23,3 +20,5 @@ jobs:
 
       - name: Create Multitoc Package
         uses: BigWigsMods/packager@multitoc
+        env:
+          GITHUB_OAUTH: ${{ secrets.GITHUB_TOKEN }}
