@@ -44,7 +44,7 @@ local function ScanPlate(plate)
 			end
 		elseif unitName == nil and offsetX < 30 then -- objective
 			local text = strmatch(line, FORMAT_QUESTOBJECTIVE)
-			if text then -- player's quest
+			if text and questName then -- player's quest
 				if inProgress == nil then
 					result[questName] = false
 				end
@@ -92,7 +92,7 @@ local function UpdateQuestIcon(plate)
 		else
 			plate.ObjectiveIcon:SetVertexColor(1, 1, 0)
 		end
-		plate.ObjectiveIcon:SetPoint("LEFT", plate.NameText, -25, 0)
+		plate.ObjectiveIcon:SetPoint("LEFT", plate.NameText, 0, 0)
 		plate.ObjectiveIcon:Show()
 	else
 		plate.ObjectiveIcon:Hide()
