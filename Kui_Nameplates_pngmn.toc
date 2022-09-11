@@ -15,3 +15,5 @@ custom.explosives.lua
 custom.mythicplus.lua
 custom.objectives.lua
 custom.spell-alert.lua
+custom.spell-target.lua
+custom.spell-timer.lua
