@@ -7,22 +7,25 @@ local function ScaleTextOffset(v)
     return floor(core:Scale(v)) - .5
 end
 
-local function UpdateNameTextPosition(plate)
-    if plate.IN_NAMEONLY then return end
-    plate.NameText:SetJustifyH("LEFT")
-	plate.NameText:SetPoint("BOTTOMLEFT", plate.HealthBar, "TOPLEFT", 0, ScaleTextOffset(core.profile.name_vertical_offset))
-    plate.NameText:SetPoint("RIGHT", plate.HealthBar, 0, 0)
+local function UpdateNameTextPosition(f)
+    if f.IN_NAMEONLY then return end
+    f.NameText:SetJustifyH("LEFT")
+    f.NameText:SetPoint("BOTTOMLEFT", f.HealthBar, "TOPLEFT", 0, ScaleTextOffset(core.profile.name_vertical_offset))
+    f.NameText:SetPoint("RIGHT", f.HealthBar, 0, 0)
 end
 
-function mod:Create(plate)
-    hooksecurefunc(plate, "UpdateNameTextPosition", function(plate)
-        UpdateNameTextPosition(plate)
+function mod:Create(f)
+    hooksecurefunc(f, "UpdateNameTextPosition", function(f)
+        UpdateNameTextPosition(f)
     end)
 end
 
+function mod:OnInitialise()
+    for _, f in addon:Frames() do
+        self:Create(f)
+    end
+end
+
 function mod:OnEnable()
-    for _, plate in addon:Frames() do
-		self:Create(plate)
-	end
     self:RegisterMessage("Create")
 end
