@@ -1,3 +1,12 @@
+Kui Nameplates Mania | 1.5.2
+----------------------------
+- Fixed elite indicator module.
+
+Kui Nameplates Mania | 1.5.1
+----------------------------
+- Fixed explosives module.
+- Fixed mythic plus auras.
+
 Kui Nameplates Mania | 1.5.0
 ----------------------------
 - ToC update for 9.2.0

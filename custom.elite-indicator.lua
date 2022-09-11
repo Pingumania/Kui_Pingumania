@@ -9,10 +9,10 @@ if not mod then return end
 
 local instanced_pvp
 local ELITE_INDICATOR = true
-local MAX_LEVEL = ns.Retail and GetMaxLevelForPlayerExpansion() or ns.BCC and 70 or ns.Classic and 60
+local MAX_LEVEL = GetMaxLevelForPlayerExpansion()
 
 local function UpdateLevel(f)
-    plate = f.parent
+    local f = f.parent
 
     if kui.CLASSIC then
         f.state.level = UnitLevel(f.unit) or 0
@@ -79,10 +79,9 @@ end
 
 function mod:OnInitialise()
     if ELITE_INDICATOR then
-        for _, plate in addon:Frames() do
+        for _, f in addon:Frames() do
             self:Show(f)
         end
-        addon.Namef.UpdateLevel = UpdateLevel
     end
 end
 
@@ -90,5 +89,6 @@ function mod:OnEnable()
     if ELITE_INDICATOR then
         self:RegisterMessage("Show")
         self:RegisterEvent("PLAYER_ENTERING_WORLD")
+        addon.Nameplate.UpdateLevel = UpdateLevel
     end
 end
