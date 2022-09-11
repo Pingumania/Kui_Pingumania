@@ -9,6 +9,7 @@ libs\libs.xml
 custom.castbar-text.lua
 custom.classpower-pos.lua
 custom.elite-indicator.lua
+custom.explosives.lua
 custom.mythicplus.lua
 custom.objectives.lua
 custom.spell-alert.lua
