@@ -1,4 +1,4 @@
-## Interface: 11307
+## Interface: 11402
 ## Author: pngmn
 ## Title: Kui |cff9966ffNameplates:|r |cffffffffMania|r
 ## Notes: Custom nameplate scripts
