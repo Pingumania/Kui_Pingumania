@@ -92,7 +92,7 @@ local function UpdateQuestIcon(plate)
 		else
 			plate.ObjectiveIcon:SetVertexColor(1, 1, 0)
 		end
-		plate.ObjectiveIcon:SetPoint("CENTER", plate.NameText, -(plate.NameText:GetStringWidth() + 12), 0)
+		plate.ObjectiveIcon:SetPoint("CENTER", plate.NameText, -(plate.NameText:GetWidth() + 12), 0)
 		plate.ObjectiveIcon:Show()
 	else
 		plate.ObjectiveIcon:Hide()
