@@ -20,7 +20,7 @@ end
 local function PostCreateAuraButton(plate, button)
 	if plate.id ~= "Custom_MythicBolster" then return end
 	button.count:ClearAllPoints()
-	button.count:SetPoint("Center", button)
+	button.count:SetPoint("BOTTOMRIGHT", 4, -2)
 	local font, size, flag = button.cd:GetFont()
 	button.count.fontobject_size = size + 10
 end
