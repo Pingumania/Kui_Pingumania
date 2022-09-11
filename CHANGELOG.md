@@ -1,3 +1,7 @@
+Kui Nameplates Mania | 1.3.0
+----------------------------
+- TOC update for 9.1.5
+
 Kui Nameplates Mania | 1.2.1
 ----------------------------
 - Fix namespace error
