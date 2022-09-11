@@ -1,3 +1,4 @@
+local _, ns = ...
 local addon = KuiNameplates
 local core = KuiNameplatesCore
 local kui = LibStub("Kui-1.0")
@@ -6,6 +7,7 @@ if not mod then return end
 
 local instanced_pvp
 local ELITE_INDICATOR = true
+local MAX_LEVEL = ns.Mainline and GetMaxLevelForPlayerExpansion() or ns.BCC and 70 or ns.Classic and 60
 
 local function UpdateLevel(f)
 	f = f.parent
@@ -22,7 +24,7 @@ local function UpdateLevel(f)
 			l = "B"
 		end
 		cl = strupper(gsub(cl, "+", "E"))
-		if type(l) == "number" and l >= GetMaxLevelForPlayerExpansion() then
+		if type(l) == "number" and l >= MAX_LEVEL then
 			f.LevelText:SetText(cl)
 		else
 			f.LevelText:SetText(l..cl)
