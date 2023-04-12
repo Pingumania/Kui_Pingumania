@@ -7,9 +7,11 @@ local kui = LibStub("Kui-1.0")
 local mod = addon:NewPlugin("Custom_TargetHelper", 101)
 if not mod then return end
 
+local classColoredHealthbar = false
 local CLASS = select(2, UnitClass("player"))
 
 local function GetColor(f)
+    local r, g, b
     if UnitIsTapDenied(f.unit) then
         r, g, b = unpack(core.profile.colour_tapped)
     elseif ns.modules.explosives and f.state.name == ns.mob_name then
@@ -53,7 +55,7 @@ function mod:Show(f)
     if not f.state or not f.unit then return end
     if f.state.personal then return end
     local r, g, b = GetColor(f)
-    if f.elements.HealthBar then
+    if f.elements.HealthBar and classColoredHealthbar then
         f.HealthBar:SetStatusBarColor(r, g, b)
     end
 end
