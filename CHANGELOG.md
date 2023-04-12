@@ -1,11 +1,13 @@
-Kui Nameplates Mania | 1.5.2
-----------------------------
-- Fixed elite indicator module.
-
-Kui Nameplates Mania | 1.5.1
-----------------------------
-- Fixed explosives module.
-- Fixed mythic plus auras.
+Kui Pingumania | 2.0.0
+----------------------
+- ToC update for 10.0.7
+- Fixed explosives module
+- Fixed mythic plus auras
+- Fixed elite indicator module
+- Added raging and execute indicator
+- Added pixel perfect module
+- Added fix for overlapping progressbar
+- Reworked objectives module
 
 Kui Nameplates Mania | 1.5.0
 ----------------------------
