@@ -41,15 +41,14 @@ local function UpdateStateIcon(f)
         return
     end
 
-    -- local ICON_SIZE = core:Scale(20)
-
     if f.state.classification == "worldboss" then
         f.StateIcon:SetTexture("interface/addons/kui_nameplates_core/media/state-icons")
         f.StateIcon:SetTexCoord(0, 0.5, 0, 0.5)
         f.StateIcon:SetVertexColor(1, 1, 1)
         f.StateIcon:Show()
     elseif f.state.classification == "elite" then
-        f.StateIcon:SetAtlas("nameplates-icon-elite-gold")
+        f.StateIcon:SetTexture("Interface/TargetingFrame/Nameplates")
+        f.StateIcon:SetTexCoord(0.00390625, 0.148438, 0.234375, 0.507812)
         f.StateIcon:SetVertexColor(1, 1, 1)
         f.StateIcon:Show()
     elseif f.state.classification == "rareelite" then
@@ -69,7 +68,13 @@ end
 
 function mod:Show(f)
     UpdateStateIcon(f)
-    -- f.UpdateStateIconSize = function() end
+end
+
+function mod:Create(f)
+    f.UpdateStateIcon = UpdateStateIcon
+    f.UpdateStateIconSize = function() end
+    f.StateIcon:SetSize(28, 28)
+    UpdateStateIcon(f)
 end
 
 function mod:PLAYER_ENTERING_WORLD()
@@ -80,14 +85,14 @@ end
 function mod:OnInitialise()
     if ELITE_INDICATOR then
         for _, f in addon:Frames() do
-            self:Show(f)
+            self:Create(f)
         end
     end
 end
 
 function mod:OnEnable()
     if ELITE_INDICATOR then
-        self:RegisterMessage("Show")
+        self:RegisterMessage("Create")
         self:RegisterEvent("PLAYER_ENTERING_WORLD")
         addon.Nameplate.UpdateLevel = UpdateLevel
     end
