@@ -13,8 +13,6 @@ local function PostPowerUpdate()
         if chargedPoints then
             addon.ClassPowersFrame.icons[unpack(chargedPoints)]:SetVertexColor(0, 0.75, 1)
             addon.ClassPowersFrame.icons[unpack(chargedPoints)].glow:Show()
-        else
-
         end
     end
 end

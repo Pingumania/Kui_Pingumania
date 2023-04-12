@@ -1,27 +1,34 @@
-## Interface: 90207
-## Interface-Classic: 11402
-## Interface-BCC: 20503
+## Interface: 100002
 ## Version: @project-version@
 
 ## Author: Pingumania
-## Title: Kui |cff9966ffNameplates:|r |cffffffffMania|r
+## Title: Kui |cff9966ffNameplates:|r |cffffffffPingumania|r
 ## Notes: Custom nameplate scripts
 
 ## RequiredDeps: Kui_Nameplates
-## SavedVariables: KuiNameplatesManiaDB
+## OptionalDeps: LibCustomGlow-1.0, ViragDevTool
+## SavedVariables: KuiPingumaniaDB
 
-embeds.xml
+#@non-debug@
+# embeds.xml
+#@end-non-debug@
 init.lua
+custom.auras-framelevel.lua
 custom.castbar-text.lua
 custom.classpower-pos.lua
 custom.elite-indicator.lua
 custom.enemy-auras.lua
+custom.execute-indicator.lua
 custom.explosives.lua
 custom.mythicplus.lua
 custom.name-left.lua
 custom.name-short.lua
 custom.objectives.lua
+custom.raging-indicator.lua
 custom.rogue-kyrian-fix.lua
 custom.spell-alert.lua
 custom.spell-timer.lua
 custom.target-helper.lua
+custom.progressbar-fix.lua
+# custom.healers.lua
+custom.pixelperfect.lua

@@ -146,7 +146,7 @@ local important_spells = {
 }
 
 local function debug(f)
-    local db = KuiNameplatesManiaDB
+    local db = KuiPingumaniaDB
     local _, name, spellID, instance
 
     if currentInstanceID == 2162 then
@@ -231,7 +231,7 @@ function mod:PLAYER_ENTERING_WORLD()
 end
 
 function mod:OnEnable()
-    KuiNameplatesManiaDB = KuiNameplatesManiaDB or {}
+    KuiPingumaniaDB = KuiPingumaniaDB or {}
     plugin_fading = addon:GetPlugin("Fading")
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
     self:RegisterEvent("UPDATE_INSTANCE_INFO", "PLAYER_ENTERING_WORLD")
@@ -239,7 +239,7 @@ end
 
 local function SlashHandler(cmd)
     if (cmd == "wipe") then
-        KuiNameplatesManiaDB = {}
+        KuiPingumaniaDB = {}
         print("Kui_Nameplates_Mania wiped.")
     end
 end
