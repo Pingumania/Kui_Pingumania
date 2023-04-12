@@ -13,7 +13,7 @@ end
 local function UpdateNameTextPosition(f)
     if f.IN_NAMEONLY then return end
     f.NameText:SetJustifyH("LEFT")
-    f.NameText:SetPoint("BOTTOMLEFT", f.HealthBar, "TOPLEFT", 0, ScaleTextOffset(core.profile.name_vertical_offset))
+    f.NameText:SetPoint("BOTTOMLEFT", f.HealthBar, "TOPLEFT", 3, ScaleTextOffset(core.profile.name_vertical_offset))
     f.NameText:SetPoint("RIGHT", f.HealthBar, 0, 0)
 end
 
