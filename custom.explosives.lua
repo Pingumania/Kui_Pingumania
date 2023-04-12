@@ -7,7 +7,6 @@ local mod = addon:NewPlugin("Custom_Explosives", 101, 5)
 if not mod then return end
 
 local mob_name
-ns.mob_name = mob_name
 
 local function icon_Show(self)
     self.v:Show()
@@ -74,8 +73,13 @@ function mod:PLAYER_ENTERING_WORLD()
         if instanceType == "party" then
             local name, groupType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID = GetDifficultyInfo(difficulty)
             if isChallengeMode then
-                self:RegisterMessage("Show")
-                return
+                local _, activeAffixes = C_ChallengeMode.GetActiveKeystoneInfo()
+                for _, id in pairs (activeAffixes) do
+                    if id == 13 then
+                        self:RegisterMessage("Show")
+                        return
+                    end
+                end
             end
         end
     end
@@ -101,4 +105,5 @@ function mod:OnEnable()
         zhCN = "爆炸物",
     }
     mob_name = (locale and names[locale]) or names.enUS
+    ns.mob_name = mob_name
 end

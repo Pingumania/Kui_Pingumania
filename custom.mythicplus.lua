@@ -46,8 +46,11 @@ end
 
 local function PostDisplayAuraButton(f, button)
     if f.id ~= "Custom_MythicBolster" then return end
-    button.count:SetText(GetBolsterCount(f.parent.unit) > 1 or "")
-    button.count:Show()
+    local c = GetBolsterCount(f.parent.unit)
+    if c > 1 then
+        button.count:SetText(tostring(c))
+        button.count:Show()
+    end
 end
 
 local function PostUpdateAuraFrame(f)
@@ -56,7 +59,7 @@ local function PostUpdateAuraFrame(f)
     if c > 1 then
         for _, button in ipairs(f.buttons) do
             if button.spellid == 209859 then
-                button.count:SetText(c)
+                button.count:SetText(tostring(c))
                 button.count:Show()
                 break
             end
@@ -110,7 +113,7 @@ function mod:Create(f)
     custom:SetPoint("BOTTOMRIGHT", f.bg, "TOPRIGHT", 0, core:Scale(core.profile.auras_offset))
     custom:HookScript("OnShow", OnShow)
     custom:HookScript("OnHide", OnHide)
-    
+
     assert(not f.MythicBolster)
     local bolster = f.handler:CreateAuraFrame({
         id = "Custom_MythicBolster",
@@ -142,8 +145,13 @@ function mod:PLAYER_ENTERING_WORLD()
         if instanceType == "party" then
             local name, groupType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID = GetDifficultyInfo(difficulty)
             if isChallengeMode then
-                EnableAll()
-                return
+                local _, activeAffixes = C_ChallengeMode.GetActiveKeystoneInfo()
+                for _, id in pairs (activeAffixes) do
+                    if id == 6 or id == 8 or id == 122 or id == 7 then
+                        EnableAll()
+                        return
+                    end
+                end
             end
         end
     end
