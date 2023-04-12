@@ -44,5 +44,5 @@ function mod:OnInitialise()
 end
 
 function mod:OnEnable()
-    mod:RegisterMessage("Create")
+    self:RegisterMessage("Create")
 end

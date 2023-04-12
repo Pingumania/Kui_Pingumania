@@ -21,6 +21,7 @@ custom.enemy-auras.lua
 custom.execute-indicator.lua
 custom.explosives.lua
 custom.mythicplus.lua
+custom.show-name-fix.lua
 custom.name-left.lua
 custom.name-short.lua
 custom.objectives.lua

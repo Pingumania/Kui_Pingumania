@@ -10,7 +10,7 @@ local format = format
 
 function mod:CastBarShow(f)
     f.SpellTimer:Show()
-    f.CastBarUpdateFrame:HookScript("OnUpdate", function(self, elapsed)
+    f.CastBarUpdateFrame:HookScript("OnUpdate", function()
         local value
         if f.cast_state.channel then
             value = f.CastBar:GetValue()
