@@ -9,7 +9,8 @@ local class, execute_range
 
 local talents = {
     ["HUNTER"] = {
-        [273887] = 35 -- Beast Mastery Killer Instinct
+        [273887] = 35, -- Beast Mastery Killer Instinct
+        [53351] = 20, -- Kill Shot
     },
     ["MAGE"] = {
         [269644] = 30, -- Fire Searing Touch
