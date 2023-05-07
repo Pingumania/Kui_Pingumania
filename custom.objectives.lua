@@ -20,8 +20,9 @@ local FORMAT_QUEST_OBJECTS_PROGRESS = "%((%d+)%%%)$"
 local playerName = UnitName("player")
 
 local function TooltipScanLines(tooltipData)
-    if not tooltipData then return end
-    TooltipUtil.SurfaceArgs(tooltipData)
+    if not tooltipData then
+        return
+    end
 
     local isPlayer
     local questName
@@ -30,7 +31,7 @@ local function TooltipScanLines(tooltipData)
 
     for i = 3, #tooltipData.lines do
         local line = tooltipData.lines[i]
-        TooltipUtil.SurfaceArgs(line)
+
         if (line.type == 17) then -- QuestTitle
             questName = line.leftText
             questID = line.id or questID or worldQuests[questName]
@@ -58,7 +59,9 @@ local function TooltipScanLines(tooltipData)
 end
 
 local function UpdateQuestIcon(f)
-    if UnitIsPlayer(f.unit) then return end
+    if UnitIsPlayer(f.unit) or f.IN_NAMEONLY then
+        return
+    end
     local tooltipData = C_TooltipInfo.GetUnit(f.unit)
     local inProgress, remaining, isWorldQuest = TooltipScanLines(tooltipData)
     if inProgress then
