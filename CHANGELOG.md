@@ -1,3 +1,7 @@
+Kui Pingumania | 2.1
+--------------------
+- ToC update for 10.1.0
+
 Kui Pingumania | 2.0.0
 ----------------------
 - ToC update for 10.0.7

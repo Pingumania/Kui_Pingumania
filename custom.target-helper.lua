@@ -8,6 +8,8 @@ local mod = addon:NewPlugin("Custom_TargetHelper", 101)
 if not mod then return end
 
 local classColoredHealthbar = false
+local classColoredTargetArrows = false
+local classColoredFrameGlow = false
 local CLASS = select(2, UnitClass("player"))
 
 local function GetColor(f)
@@ -26,14 +28,14 @@ end
 
 local function UpdateFrameGlow(f)
     local r, g, b = GetColor(f)
-    if f.IN_NAMEONLY then
+    if f.IN_NAMEONLY and classColoredFrameGlow then
         if f.NameOnlyGlow then
             if TARGET_GLOW and f.state.target then
                 f.NameOnlyGlow:SetVertexColor(r, g, b)
             end
         end
     else
-        if core.profile.target_glow and f.state.target then
+        if core.profile.target_glow and f.state.target and classColoredFrameGlow then
             f.TargetGlow:SetVertexColor(r, g, b)
             f.ThreatGlow:SetVertexColor(r, g, b)
         end
@@ -41,12 +43,12 @@ local function UpdateFrameGlow(f)
 end
 
 local function UpdateTargetArrows(f)
-    local r, g, b = GetColor(f)
-    if not core.profile.target_arrows or f.IN_NAMEONLY then
+    if not core.profile.target_arrows or f.IN_NAMEONLY or not classColoredTargetArrows then
         return
     end
 
     if f.state.target then
+        local r, g, b = GetColor(f)
         f.TargetArrows:SetVertexColor(r, g, b)
     end
 end
