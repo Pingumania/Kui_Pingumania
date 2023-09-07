@@ -45,7 +45,7 @@ local function TooltipScanLines(tooltipData)
             local progress = questID and C_TaskQuest.GetQuestProgressBarInfo(questID)
             local d1 = strmatch(line.leftText, FORMAT_QUEST_OBJECTS_PROGRESS)
             local d2, d3 = strmatch(line.leftText, FORMAT_QUEST_OBJECTS_FOUND)
-            local remaining
+            local remaining = 0
             if d1 or progress then
                 remaining = 100 - (d1 or progress)
             elseif d2 and d3 then
