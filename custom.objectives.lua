@@ -81,6 +81,8 @@ local function UpdateQuestIcon(f)
 end
 
 function mod:Show(f)
+    local font, _, flags = f.NameText:GetFont()
+    f.ObjectiveText:SetFont(font or core.profile.font_face, core.profile.font_size_small, flags or core.profile.font_style)
     UpdateQuestIcon(f)
     activePlates[f] = true
 end
@@ -100,9 +102,7 @@ function mod:Create(f)
     icon:Hide()
     f.ObjectiveIcon = icon
     local text = f:CreateFontString(nil, "OVERLAY")
-    local font, _, flags = f.NameText:GetFont()
     text:SetJustifyH("CENTER")
-    text:SetFont(font, core.profile.font_size_small, flags)
     text:SetPoint("CENTER", icon, 0, 0)
     text:Hide()
     f.ObjectiveText = text

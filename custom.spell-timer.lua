@@ -9,6 +9,8 @@ if not mod then return end
 local format = format
 
 function mod:CastBarShow(f)
+    local font, _, flags = f.NameText:GetFont()
+    f.SpellTimer:SetFont(font, core.profile.font_size_small, flags)
     f.SpellTimer:Show()
     f.CastBarUpdateFrame:HookScript("OnUpdate", function()
         local value
@@ -32,8 +34,6 @@ end
 function mod:Create(f)
     if f.SpellTimer then return end
     local timer = f:CreateFontString(nil, "OVERLAY")
-    local font, _, flags = f.NameText:GetFont()
-    timer:SetFont(font, core.profile.font_size_small, flags)
     timer:SetPoint("RIGHT", f.CastBar.bg, "RIGHT", -2, 0)
     f.SpellTimer = timer
 end
