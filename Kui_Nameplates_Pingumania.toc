@@ -14,6 +14,7 @@
 #@end-non-debug@
 init.lua
 custom.auras-framelevel.lua
+custom.auras-right.lua
 custom.castbar-text.lua
 custom.classpower-pos.lua
 custom.elite-indicator.lua
