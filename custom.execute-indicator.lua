@@ -62,6 +62,7 @@ function mod:PLAYER_SPECIALIZATION_CHANGED()
 end
 
 function mod:Show(f)
+    if not f.ExecuteLine then return end
     if f.IN_NAMEONLY or execute_range <= 0 then
         f.ExecuteLine:Hide()
     else
