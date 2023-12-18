@@ -59,7 +59,7 @@ local function TooltipScanLines(tooltipData)
 end
 
 local function UpdateQuestIcon(f)
-    if UnitIsPlayer(f.unit) or f.IN_NAMEONLY then
+    if UnitIsPlayer(f.unit) or f.IN_NAMEONLY or not f.ObjectiveIcon or not f.ObjectiveText then
         return
     end
     local tooltipData = C_TooltipInfo.GetUnit(f.unit)
@@ -88,9 +88,10 @@ function mod:Show(f)
 end
 
 function mod:Hide(f)
+    activePlates[f] = nil
+    if not f.ObjectiveIcon or not f.ObjectiveText then return end
     f.ObjectiveIcon:Hide()
     f.ObjectiveText:Hide()
-    activePlates[f] = nil
 end
 
 function mod:Create(f)
@@ -121,11 +122,6 @@ function mod:PLAYER_ENTERING_WORLD(event)
             end
         end
     end
-    self:RegisterEvent("QUEST_LOG_UPDATE")
-end
-
-function mod:PLAYER_LEAVING_WORLD()
-    self:UnregisterEvent("QUEST_LOG_UPDATE")
 end
 
 function mod:QUEST_ACCEPTED(event, questID)
@@ -135,19 +131,20 @@ function mod:QUEST_ACCEPTED(event, questID)
             worldQuests[questName] = questID
         end
     end
-    self:UNIT_QUEST_LOG_CHANGED()
+    self:UNIT_QUEST_LOG_CHANGED(event, "player")
 end
 
-function mod:QUEST_REMOVED()
-    self:UNIT_QUEST_LOG_CHANGED()
+function mod:QUEST_WATCH_LIST_CHANGED(event, questID, added)
+    if added then
+        self:QUEST_ACCEPTED(event, questID)
+    end
 end
 
-function mod:QUEST_WATCH_LIST_CHANGED(event, questID)
+function mod:QUEST_WATCH_UPDATE(event, questID)
     self:QUEST_ACCEPTED(event, questID)
 end
 
-function mod:UNIT_QUEST_LOG_CHANGED(event, unitID)
-    if unitID == "player" then return end
+function mod:UNIT_QUEST_LOG_CHANGED(event)
     for f, active in pairs(activePlates) do
         if active then
             UpdateQuestIcon(f)
@@ -155,31 +152,37 @@ function mod:UNIT_QUEST_LOG_CHANGED(event, unitID)
     end
 end
 
-function mod:QUEST_LOG_UPDATE()
-    for f, active in pairs(activePlates) do
-        if active then
-            UpdateQuestIcon(f)
-        end
+function mod:OnInitialise()
+    for _, f in addon:Frames() do
+        self:Create(f)
     end
 end
 
 function mod:OnEnable()
-    for _, f in addon:Frames() do
-        self:Create(f)
-    end
+    -- Workaround for KNP not supporting RegisterUnitEvent correctly
+    local f = CreateFrame("Frame")
+    f:RegisterUnitEvent("UNIT_QUEST_LOG_CHANGED", "player")
+    f:SetScript("OnEvent", function(self, event)
+        mod:UNIT_QUEST_LOG_CHANGED(event)
+    end)
+
     self:RegisterMessage("Create")
     self:RegisterMessage("Show")
     self:RegisterMessage("Hide")
-    self:RegisterEvent("UNIT_QUEST_LOG_CHANGED")
-    self:RegisterEvent("QUEST_REMOVED")
-    self:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
+    -- self:RegisterEvent("UNIT_QUEST_LOG_CHANGED")
+    -- self:RegisterEvent("QUEST_REMOVED", UNIT_QUEST_LOG_CHANGED)
+    -- self:RegisterEvent("QUEST_WATCH_LIST_CHANGED")
     self:RegisterEvent("QUEST_ACCEPTED")
     self:RegisterEvent("PLAYER_ENTERING_WORLD")
-    self:RegisterEvent("PLAYER_LEAVING_WORLD")
+    -- self:RegisterEvent("QUEST_COMPLETE", UNIT_QUEST_LOG_CHANGED)
+    -- self:RegisterEvent("QUEST_WATCH_UPDATE", UNIT_QUEST_LOG_CHANGED)
+    -- self:RegisterEvent("QUEST_AUTOCOMPLETE", UNIT_QUEST_LOG_CHANGED)
+    -- self:RegisterEvent("QUEST_TURNED_IN", UNIT_QUEST_LOG_CHANGED)
+    -- self:RegisterEvent("QUEST_LOG_CRITERIA_UPDATE", UNIT_QUEST_LOG_CHANGED)
 
     -- Disable KNP Quest module
     local plugin_quest = addon:GetPlugin("Quest")
     plugin_quest.QuestLogUpdate = function() end
     plugin_quest.Show = function() end
-    self:UnregisterEvent("QUEST_LOG_UPDATE")
+    plugin_quest:UnregisterEvent("QUEST_LOG_UPDATE")
 end
