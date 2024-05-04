@@ -8,7 +8,9 @@ local mod = addon:NewPlugin("Custom_EliteIndicator", 101)
 if not mod then return end
 
 local instanced_pvp
-local ELITE_INDICATOR = true
+local ELITE_INDICATOR_ICON = true
+local ELITE_INDICATOR_TEXT = false
+local ELITE_INDICATOR_BORDER = false
 local MAX_LEVEL = GetMaxLevelForPlayerExpansion()
 
 local function UpdateLevel(f)
@@ -41,6 +43,9 @@ local function UpdateStateIcon(f)
         return
     end
 
+    f.StateIcon:ClearAllPoints()
+    f.StateIcon:SetPoint("RIGHT", f, "LEFT", -1, 0)
+
     if f.state.classification == "worldboss" then
         f.StateIcon:SetTexture("interface/addons/kui_nameplates_core/media/state-icons")
         f.StateIcon:SetTexCoord(0, 0.5, 0, 0.5)
@@ -66,15 +71,59 @@ local function UpdateStateIcon(f)
     end
 end
 
+local function UpdateNameText(f)
+    local indicator = ""
+    local r, g, b = 1, 1, 1
+    if f.state.level == -1 then
+        r, g, b = 1, 0, 0
+        indicator = "+??"
+    elseif f.state.classification == "worldboss" then
+        indicator = "b"
+        r, g, b = 1, 0, 0
+    elseif f.state.classification == "elite" then
+        r, g, b = 1, 1, 0
+        indicator = "+"
+    elseif f.state.classification == "rareelite" then
+        indicator = "r+"
+        r, g, b = 1, 0.82, 0
+    elseif f.state.classification == "rare" then
+        indicator = "r"
+        r, g, b = 1, 0.82, 0
+    end
+
+    local text = f.NameText:GetText()
+    local color = CreateColor(r, g, b)
+    f.NameText:SetText(text..color:GenerateHexColorMarkup()..indicator)
+    f.NameText:Show()
+end
+
 function mod:Show(f)
-    UpdateStateIcon(f)
+    if ELITE_INDICATOR_ICON then
+        UpdateStateIcon(f)
+    end
+
+    if ELITE_INDICATOR_TEXT then
+        UpdateNameText(f)
+    end
+
+    if ELITE_INDICATOR_BORDER then
+
+    end
+end
+
+function mod:Hide(f)
+    if ELITE_INDICATOR_TEXT then
+        f.ClassificationText:Hide()
+    end
 end
 
 function mod:Create(f)
-    f.UpdateStateIcon = UpdateStateIcon
-    f.UpdateStateIconSize = function() end
-    f.StateIcon:SetSize(28, 28)
-    UpdateStateIcon(f)
+    if ELITE_INDICATOR_ICON then
+        f.UpdateStateIcon = UpdateStateIcon
+        f.UpdateStateIconSize = function() end
+        f.StateIcon:SetSize(28, 28)
+        UpdateStateIcon(f)
+    end
 end
 
 function mod:PLAYER_ENTERING_WORLD()
@@ -83,17 +132,14 @@ function mod:PLAYER_ENTERING_WORLD()
 end
 
 function mod:OnInitialise()
-    if ELITE_INDICATOR then
-        for _, f in addon:Frames() do
-            self:Create(f)
-        end
+    for _, f in addon:Frames() do
+        self:Create(f)
     end
 end
 
 function mod:OnEnable()
-    if ELITE_INDICATOR then
-        self:RegisterMessage("Create")
-        self:RegisterEvent("PLAYER_ENTERING_WORLD")
-        addon.Nameplate.UpdateLevel = UpdateLevel
-    end
+    self:RegisterMessage("Create")
+    self:RegisterMessage("Show")
+    self:RegisterEvent("PLAYER_ENTERING_WORLD")
+    addon.Nameplate.UpdateLevel = UpdateLevel
 end
