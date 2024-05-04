@@ -10,7 +10,7 @@ local format = format
 
 function mod:CastBarShow(f)
     local font, _, flags = f.NameText:GetFont()
-    f.SpellTimer:SetFont(font, core.profile.font_size_small, flags)
+    f.SpellTimer:SetFont(font or core.profile.font_face, core.profile.font_size_small, flags or core.profile.font_style)
     f.SpellTimer:Show()
     f.CastBarUpdateFrame:HookScript("OnUpdate", function()
         local value
