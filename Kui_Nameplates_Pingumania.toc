@@ -32,5 +32,3 @@ custom.spell-alert.lua
 custom.spell-timer.lua
 custom.target-helper.lua
 custom.progressbar-fix.lua
-# custom.healers.lua
-custom.pixelperfect.lua
