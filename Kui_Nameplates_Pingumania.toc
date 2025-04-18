@@ -1,16 +1,17 @@
-## Interface: 100207
+## Interface: 110100
 ## Version: @project-version@
 
 ## Author: Pingumania
-## Title: Kui |cff9966ffNameplates:|r |cffffffffPingumania|r
+## Title: Kui |cff9966ffNameplates:|r |cffffffffMania|r
 ## Notes: Custom nameplate scripts
+## Category: Unit Frames
 
 ## RequiredDeps: Kui_Nameplates
-## OptionalDeps: LibCustomGlow-1.0, ViragDevTool
+## OptionalDeps: LibCustomGlow-1.0
 ## SavedVariables: KuiPingumaniaDB
 
 #@non-debug@
-# embeds.xml
+# Embeds.xml
 #@end-non-debug@
 init.lua
 custom.auras-framelevel.lua
