@@ -1,6 +1,4 @@
 local _, ns = ...
-if not ns.Retail then return end
-if not ns.modules.spell_alert then return end
 
 local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_SpellAlert", 101)
@@ -197,7 +195,7 @@ function mod:CastBarShow(f)
     if DEBUG then debug(f) end
 
     for _, spell in pairs(important_spells[currentInstanceID]) do
-        local name = GetSpellInfo(spell.spellID)
+        local name = C_Spell.GetSpellInfo(spell.spellID).name
         if f.cast_state.name == name and f.cast_state.interruptible then
             local color
             if spell.type and spell.type == "heal" then

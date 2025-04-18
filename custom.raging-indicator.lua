@@ -1,8 +1,6 @@
 local _, ns = ...
-if not ns.Retail then return end
 
 local addon = KuiNameplates
-local core = KuiNameplatesCore
 local mod = addon:NewPlugin("Custom_RagingIndicator", 101)
 if not mod then return end
 local HAS_ENABLED

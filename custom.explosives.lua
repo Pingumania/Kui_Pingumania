@@ -1,12 +1,10 @@
 local _, ns = ...
-if not ns.Retail then return end
-if not ns.modules.explosives then return end
 
 local addon = KuiNameplates
 local mod = addon:NewPlugin("Custom_Explosives", 101, 5)
 if not mod then return end
 
-local mob_name
+local explosive_name
 
 local function icon_Show(self)
     self.v:Show()
@@ -54,7 +52,7 @@ function mod:Create(f)
 end
 
 function mod:Show(f)
-    if f.state.name ~= mob_name then return end
+    if f.state.name ~= explosive_name then return end
     if not f.feicon then
         self:Create(f)
     end
@@ -71,7 +69,7 @@ function mod:PLAYER_ENTERING_WORLD()
     if IsInInstance() then
         local _, instanceType, difficulty = GetInstanceInfo()
         if instanceType == "party" then
-            local name, groupType, isHeroic, isChallengeMode, displayHeroic, displayMythic, toggleDifficultyID = GetDifficultyInfo(difficulty)
+            local _, _, _, isChallengeMode = GetDifficultyInfo(difficulty)
             if isChallengeMode then
                 local _, activeAffixes = C_ChallengeMode.GetActiveKeystoneInfo()
                 for _, id in pairs (activeAffixes) do
@@ -104,6 +102,6 @@ function mod:OnEnable()
         koKR = "폭발물",
         zhCN = "爆炸物",
     }
-    mob_name = (locale and names[locale]) or names.enUS
-    ns.mob_name = mob_name
+    explosive_name = (locale and names[locale]) or names.enUS
+    ns.explosive_name = explosive_name
 end

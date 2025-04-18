@@ -1,5 +1,4 @@
 local _, ns = ...
-if not ns.modules.elite_indicator then return end
 
 local addon = KuiNameplates
 local core = KuiNameplatesCore

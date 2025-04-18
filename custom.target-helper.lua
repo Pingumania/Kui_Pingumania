@@ -1,5 +1,4 @@
 local _, ns = ...
-if not ns.modules.target_helper then return end
 
 local addon = KuiNameplates
 local core = KuiNameplatesCore
@@ -16,7 +15,7 @@ local function GetColor(f)
     local r, g, b
     if UnitIsTapDenied(f.unit) then
         r, g, b = unpack(core.profile.colour_tapped)
-    elseif ns.modules.explosives and f.state.name == ns.mob_name then
+    elseif f.state.name == ns.explosive_name then
         r, g, b = 1, 0, 0
     elseif f.state.target and not UnitIsPlayer(f.unit) then
         r, g, b = kui.GetClassColour(CLASS, 2)
